@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
 import '../styles/globals.css'
 import { cn } from '@/lib/utils'
-import { ClerkProvider } from '@clerk/nextjs'
+import { Sidebar } from './_components/layout/sidebar'
 
 const font = DM_Sans({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -17,10 +17,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={cn('font-sans', font.variable)}>{children}</body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={cn('font-sans', font.variable)}>
+        <Sidebar />
+        {children}
+      </body>
+    </html>
   )
 }
