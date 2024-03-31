@@ -4,14 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db:dev": "turso dev --db-file dev.db",
+    "db:studio": "drizzle-kit studio",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.9",
     "@libsql/client": "^0.6.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.6",
     "lucide-react": "^0.363.0",
     "next": "14.1.4",
@@ -29,6 +33,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.13",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
