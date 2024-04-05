@@ -5,18 +5,23 @@ import { db } from '@/db'
 import { media as mediaTable } from '@/db/schemas/media'
 import { TracksList } from './tracks-list'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { desc, eq } from 'drizzle-orm'
 
 export default async function Home() {
   const session = await auth()
 
-  const media = await db.select().from(mediaTable).all()
+  if (!session) return
 
-  console.log({ media })
+  const media = await db
+    .select()
+    .from(mediaTable)
+    .where(eq(mediaTable.userId, session.user.id))
+    .orderBy(desc(mediaTable.createdAt))
+    .all()
 
   return (
     <Page>
-      <UploadButton />
       <Card>
         <CardHeader>
           <CardTitle>Your library</CardTitle>

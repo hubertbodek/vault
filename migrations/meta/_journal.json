@@ -15,6 +15,13 @@
       "when": 1712092941686,
       "tag": "0001_amused_ares",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1712352645871,
+      "tag": "0002_pale_purifiers",
+      "breakpoints": true
     }
   ]
 }

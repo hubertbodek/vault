@@ -8,8 +8,10 @@ import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { db } from '@/db'
 import { media } from '@/db/schemas/media'
+import { getRandomTailwindColor } from '@/lib/random-color'
 
 interface GetSignedURLParams {
+  fileName: string
   fileType: string
   fileSize: number
   checksum: string
@@ -19,14 +21,13 @@ const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex
 
 const maxFileSize = 1024 * 1024 * 5 // 5MB
 
-export async function getSignedURL({ fileType, fileSize, checksum }: GetSignedURLParams) {
+export async function getSignedURL({ fileName, fileType, fileSize, checksum }: GetSignedURLParams) {
   const session = await auth()
 
   if (!session) {
     return { failure: 'not authenticated' }
   }
 
-  // first just make sure in our code that we're only allowing the file types we want
   if (!ALLOWED_AUDIO_FILE_TYPES.includes(fileType)) {
     return { failure: 'File type not allowed' }
   }
@@ -54,9 +55,10 @@ export async function getSignedURL({ fileType, fileSize, checksum }: GetSignedUR
     .insert(media)
     .values({
       id: key,
-      name: key,
+      name: fileName,
       size: fileSize,
       type: fileType,
+      tailwindColor: getRandomTailwindColor(),
       url: url.split('?')[0],
       userId: session.user.id,
     })

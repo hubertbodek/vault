@@ -11,6 +11,7 @@ export const media = sqliteTable('media', {
   type: text('type').notNull(),
   size: integer('size').notNull(),
   url: text('url').notNull(),
+  tailwindColor: text('tailwind_color'),
   createdAt: text('created_at')
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

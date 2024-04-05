@@ -28,13 +28,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Sidebar />
-          <PlayerProvider>
-            <div className="flex h-screen flex-col">
-              <div className="flex-1">{children}</div>
-              <PlayerController />
-            </div>
-          </PlayerProvider>
+          <div className="flex">
+            <Sidebar />
+            <PlayerProvider>
+              <div className="flex h-screen flex-1 flex-col">
+                <div className="flex-1">{children}</div>
+                <PlayerController />
+              </div>
+            </PlayerProvider>
+          </div>
         </ThemeProvider>
       </body>
     </html>
