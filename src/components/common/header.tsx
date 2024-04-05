@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { type Route } from '@/lib/routes'
 import React from 'react'
-import { ProfileActions } from './profile-actions'
+import { HeaderProfileActions } from './header-profile-actions'
 
 interface HeaderProps {
   breadcrumbs: Array<Route | string>
@@ -107,7 +107,8 @@ export const Header = ({ breadcrumbs }: HeaderProps) => {
           })}
         </BreadcrumbList>
       </Breadcrumb>
-      <ProfileActions />
+      {/* <ThemeToggle /> */}
+      <HeaderProfileActions />
     </header>
   )
 }

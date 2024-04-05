@@ -2,7 +2,10 @@ import type { Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
 import '../styles/globals.css'
 import { cn } from '@/lib/utils'
-import { Sidebar } from './_components/layout/sidebar'
+import { Sidebar } from '@/components/common/sidebar'
+import { ThemeProvider } from './theme-provider'
+import { PlayerProvider } from '@/providers/player'
+import { PlayerController } from '@/components/player-controller'
 
 const font = DM_Sans({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -19,8 +22,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn('font-sans', font.variable)}>
-        <Sidebar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Sidebar />
+          <PlayerProvider>
+            <div className="flex h-screen flex-col">
+              <div className="flex-1">{children}</div>
+              <PlayerController />
+            </div>
+          </PlayerProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
