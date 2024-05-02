@@ -7,8 +7,10 @@ import { ALLOWED_AUDIO_FILE_TYPES } from '@/constants'
 import { computeSHA256 } from '@/lib/sha256'
 import { Upload } from 'lucide-react'
 import DialogBase from './dialog-base'
+import { useRouter } from 'next/navigation'
 
 export const UploadButton = ({ className }: { className?: string }) => {
+  const router = useRouter()
   const [open, setIsOpen] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
@@ -42,6 +44,7 @@ export const UploadButton = ({ className }: { className?: string }) => {
     }
     setLoading(false)
     setIsOpen(false)
+    router.refresh()
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

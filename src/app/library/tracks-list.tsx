@@ -1,14 +1,24 @@
 'use client'
 
+import { deleteMedia } from '@/actions/media/delete-media'
 import { DataTable } from '@/components/common/data-table'
+import { TableActions } from '@/components/common/table-actions'
 import { Media } from '@/db/schemas/media'
+import { useServerAction } from '@/hooks/use-server-action'
 import { cn } from '@/lib/utils'
 import { usePlayer } from '@/providers/player'
 import { ColumnDef } from '@tanstack/react-table'
 import { Play, Pause } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
-export const TracksList = ({ items }: { items: Media[] }) => {
+interface TracksListProps {
+  items: Media[] | null
+}
+
+export const TracksList = ({ items }: TracksListProps) => {
+  const router = useRouter()
   const { playTrack, audioUrl: currentlyPlaying } = usePlayer()
+  const [deleteMediaAction, isLoading] = useServerAction(deleteMedia, () => router.refresh())
 
   const togglePlay = (url: string) => {
     currentlyPlaying === url ? playTrack('') : playTrack(url)
@@ -69,7 +79,24 @@ export const TracksList = ({ items }: { items: Media[] }) => {
         return row.original.createdAt
       },
     },
+    {
+      accessorKey: 'delete',
+      header: () => <span className="sr-only">Actions</span>,
+      cell: ({ row }) => {
+        return (
+          <TableActions
+            isLoading={isLoading}
+            actions={[
+              {
+                label: 'Delete',
+                onClick: async () => await deleteMediaAction({ id: row.original.id }),
+              },
+            ]}
+          />
+        )
+      },
+    },
   ]
 
-  return <DataTable columns={columns} data={items} />
+  return <DataTable columns={columns} data={items ?? []} />
 }

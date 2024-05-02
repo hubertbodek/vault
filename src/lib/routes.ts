@@ -1,4 +1,4 @@
-import { Home, Package2 } from 'lucide-react'
+import { Home, Package2, Box } from 'lucide-react'
 
 export const routesMap = {
   home: {
@@ -10,6 +10,11 @@ export const routesMap = {
     path: '/library',
     name: 'Library',
     icon: Package2,
+  },
+  packs: {
+    path: '/packs',
+    name: 'Packs',
+    icon: Box,
   },
 } as const
 

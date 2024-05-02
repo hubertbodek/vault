@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Home, LineChart, Package, Package2, PanelLeft, ShoppingCart, Users2 } from 'lucide-react'
 
 import {
   Breadcrumb,
@@ -9,13 +8,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { Button } from '@/components/ui/button'
 
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { type Route } from '@/lib/routes'
 import React from 'react'
 import { HeaderProfileActions } from './header-profile-actions'
-import { ThemeToggle } from './theme-toggle'
 import { UploadButton } from './upload-button'
 
 interface HeaderProps {
@@ -58,7 +54,7 @@ export const Header = ({ breadcrumbs }: HeaderProps) => {
           })}
         </BreadcrumbList>
       </Breadcrumb>
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
       <div className="ml-auto flex items-center gap-4">
         <UploadButton />
         <HeaderProfileActions />

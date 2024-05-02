@@ -9,6 +9,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { db } from '@/db'
 import { media } from '@/db/schemas/media'
 import { getRandomTailwindColor } from '@/lib/random-color'
+import { revalidatePath } from 'next/cache'
 
 interface GetSignedURLParams {
   fileName: string
@@ -18,6 +19,7 @@ interface GetSignedURLParams {
 }
 
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
+const removeExtension = (fileName: string) => fileName.split('.').slice(0, -1).join('.')
 
 const maxFileSize = 1024 * 1024 * 5 // 5MB
 
@@ -55,7 +57,7 @@ export async function getSignedURL({ fileName, fileType, fileSize, checksum }: G
     .insert(media)
     .values({
       id: key,
-      name: fileName,
+      name: removeExtension(fileName),
       size: fileSize,
       type: fileType,
       tailwindColor: getRandomTailwindColor(),

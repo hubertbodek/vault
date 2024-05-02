@@ -17,6 +17,18 @@ const tailwindColors = [
   'bg-cyan-800',
   'bg-teal-400',
   'bg-teal-800',
+  'bg-gray-400',
+  'bg-gray-800',
+  'bg-orange-400',
+  'bg-orange-800',
+  'bg-lime-400',
+  'bg-lime-800',
+  'bg-emerald-400',
+  'bg-emerald-800',
+  'bg-amber-400',
+  'bg-amber-800',
+  'bg-red-400',
+  'bg-red-800',
 ]
 
 export const getRandomTailwindColor = () => {
